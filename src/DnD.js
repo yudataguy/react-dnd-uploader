@@ -2,7 +2,7 @@ import React from 'react';
 
 class DnD extends React.Component {
   state = {
-    dragging: false
+    dragging: false,
   };
 
   dragCounter = 0;
@@ -34,6 +34,7 @@ class DnD extends React.Component {
   handleDrop = e => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('dnd handle drop')
     this.setState({ dragging: false });
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       this.props.handleDrop(e.dataTransfer.files);
@@ -57,7 +58,7 @@ class DnD extends React.Component {
     div.removeEventListener("dragover", this.handleDrag);
     div.removeEventListener("drop", this.handleDrop);
   }
-  
+
   render() {
     return (
       <div
