@@ -2,6 +2,7 @@ var express =   require("express");
 var multer  =   require('multer');
 var cors = require('cors');
 var app         =   express();
+
 var storage =   multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './uploads');
@@ -10,7 +11,9 @@ var storage =   multer.diskStorage({
     callback(null, file.fieldname + '-' + Date.now());
   }
 });
+
 var upload = multer({ storage : storage}).single('userPhoto');
+
 const PORT = 3001;
 
 app.use(cors());
@@ -28,5 +31,5 @@ app.post('/api/photo',function(req,res){
 });
 
 app.listen(PORT,function(){
-    console.log("Node server working on port " + PORT);
+    console.log(`Node server working on port ${PORT}`);
 });
