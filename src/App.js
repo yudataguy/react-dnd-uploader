@@ -13,6 +13,7 @@ export default function App() {
   const [files, setFiles] = React.useState(undefined);
   const [uploading, setUploading] = React.useState(false);
   const [preview, setPreview] = React.useState(true)
+  const [autoUpload, setAutoUpload] = React.useState(false)
 
   const handleDrop = files => {
     createPreviews(files);
@@ -30,6 +31,16 @@ export default function App() {
       });
     }
   }
+
+  React.useEffect(() => {
+    if (autoUpload){
+      if(files) {
+        Object.values(files).forEach(file => {
+          apiService.uploadFile(file, setUploading, setFiles, context.setContext);
+        });
+      }
+    }
+  }, [files])
 
   const createPreviews = filesToPreview => {
     if(filesToPreview) {
