@@ -4,12 +4,15 @@ class DnD extends React.Component {
   state = {
     dragging: false
   };
+
   dragCounter = 0;
   dropRef = React.createRef();
+
   handleDrag = e => {
     e.preventDefault();
     e.stopPropagation();
   };
+
   handleDragIn = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -18,6 +21,7 @@ class DnD extends React.Component {
       this.setState({ dragging: true });
     }
   };
+
   handleDragOut = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -26,6 +30,7 @@ class DnD extends React.Component {
       this.setState({ dragging: false });
     }
   };
+
   handleDrop = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -36,6 +41,7 @@ class DnD extends React.Component {
       this.dragCounter = 0;
     }
   };
+
   componentDidMount() {
     let div = this.dropRef.current;
     div.addEventListener("dragenter", this.handleDragIn);
@@ -43,6 +49,7 @@ class DnD extends React.Component {
     div.addEventListener("dragover", this.handleDrag);
     div.addEventListener("drop", this.handleDrop);
   }
+
   componentWillUnmount() {
     let div = this.dropRef.current;
     div.removeEventListener("dragenter", this.handleDragIn);
@@ -50,6 +57,7 @@ class DnD extends React.Component {
     div.removeEventListener("dragover", this.handleDrag);
     div.removeEventListener("drop", this.handleDrop);
   }
+  
   render() {
     return (
       <div
