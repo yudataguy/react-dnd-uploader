@@ -12,6 +12,7 @@ export default function App() {
   const fileInput = React.useRef();
   const [files, setFiles] = React.useState(undefined);
   const [uploading, setUploading] = React.useState(false);
+  const [preview, setPreview] = React.useState(true)
   const [autoUpload, setAutoUpload] = React.useState(false)
 
   const handleDrop = files => {
@@ -93,9 +94,9 @@ export default function App() {
                   const progress = context.imgPreviews[imgName].progress;
                   return (
                     <div key={Math.random()} className="img-previews__preview">
-                        <div className="img-previews__preview__img-box">
+                        {preview && <div className="img-previews__preview__img-box">
                           <img className="img-previews__preview__img" name={imgName} src={imgSrc} alt="upload-preview" />
-                        </div>
+                        </div>}
                       <span className="img-previews__preview__name">{imgName}</span>
                       <div className="img-previews__preview__progress-container">
                         <div className="img-previews__preview__progress" style={{width: `${(progress.loaded/progress.total)*100}%`}} />
