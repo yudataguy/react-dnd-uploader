@@ -47,7 +47,7 @@ class DnD extends React.Component {
       if (this.props.autoUpload) this.uploadFiles();
       else if (this.props.handleDrop)
         this.props.handleDrop(e.dataTransfer.files);
-      e.dataTransfer.clearData();
+      // e.dataTransfer.clearData();
       this.dragCounter = 0;
     }
   };
