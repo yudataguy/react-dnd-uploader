@@ -34,7 +34,6 @@ class DnD extends React.Component {
   handleDrop = e => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('dnd handle drop')
     this.setState({ dragging: false });
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       this.props.handleDrop(e.dataTransfer.files);

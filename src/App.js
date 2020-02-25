@@ -12,8 +12,9 @@ export default function App() {
   const fileInput = React.useRef();
   const [files, setFiles] = React.useState(undefined);
   const [uploading, setUploading] = React.useState(false);
-  const [preview, setPreview] = React.useState(true)
-  const [autoUpload, setAutoUpload] = React.useState(false)
+  const [preview, setPreview] = React.useState(true) // default value should comes from props
+  const [autoUpload, setAutoUpload] = React.useState(false) // default value should comes from props
+  const [fileType, setFileType] = React.useState(undefined) // default value should comes from props
 
   const handleDrop = files => {
     createPreviews(files);
@@ -44,6 +45,10 @@ export default function App() {
 
   const createPreviews = filesToPreview => {
     if(filesToPreview) {
+      // Filter files base on type
+      if (fileType) filesToPreview = Object.values(filesToPreview).filter(file => {
+        return fileType.includes(file.type.split('/')[0])
+      })
       // Add files to the 'files' state
       if(!files) setFiles({...filesToPreview});
       else {
