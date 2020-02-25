@@ -78,6 +78,17 @@ export default function App() {
     }
   }
 
+  const base64MimeType = encoded => {
+    let result = null;
+    if (typeof encoded !== 'string') return result
+
+    const mime = encoded.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+
+    if (mime && mime.length) result = mime[1].split('/')[0]
+
+    return result
+  }
+
 
   return (
     <div className="App">
@@ -99,9 +110,9 @@ export default function App() {
                   const progress = context.imgPreviews[imgName].progress;
                   return (
                     <div key={Math.random()} className="img-previews__preview">
-                        {preview && <div className="img-previews__preview__img-box">
-                          <img className="img-previews__preview__img" name={imgName} src={imgSrc} alt="upload-preview" />
-                        </div>}
+                      {preview && <div className="img-previews__preview__img-box">
+                        {base64MimeType(imgSrc) === 'image' && <img className="img-previews__preview__img" name={imgName} src={imgSrc} alt="upload-preview" />}
+                      </div>}
                       <span className="img-previews__preview__name">{imgName}</span>
                       <div className="img-previews__preview__progress-container">
                         <div className="img-previews__preview__progress" style={{width: `${(progress.loaded/progress.total)*100}%`}} />
