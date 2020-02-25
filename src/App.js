@@ -14,7 +14,6 @@ export default function App() {
         className="drag-and-drop"
         preview
         uploadUrl="http://localhost:3001/api/photo"
-        autoUpload
       >
         <div>
           <div>

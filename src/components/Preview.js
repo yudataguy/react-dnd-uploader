@@ -23,6 +23,16 @@ export default function({ autoUpload, handleSubmit }) {
                     alt="upload-preview"
                   />
                 )}
+                {!!imgSrc && imgSrc.split(":")[0] === "blob" && (
+                  <video
+                    className="img-preview__preview__img"
+                    name={imgName}
+                    src={imgSrc}
+                    alt="upload-preview"
+                    width="100px"
+                    height="100px"
+                  />
+                )}
               </div>
               <span className="img-previews__preview__name">{imgName}</span>
               <div className="img-previews__preview__progress-container">
