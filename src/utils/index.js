@@ -44,12 +44,15 @@ export const createPreviews = (filesToPreview, context, fileType) => {
     Object.values(filesToPreview).forEach(file => {
       const reader = new FileReader();
       reader.onload = e => {
+        const imgSrc = file.type.match("video")
+          ? getVideoThumbnail(file)
+          : e.target.result;
         context.setContext(state => ({
           imgPreviews: {
             ...state.imgPreviews,
             [file.name]: {
               ...state.imgPreviews[file.name],
-              src: e.target.result,
+              src: imgSrc,
               progress: {
                 loaded: 0,
                 total: 1
@@ -61,4 +64,10 @@ export const createPreviews = (filesToPreview, context, fileType) => {
       reader.readAsDataURL(file);
     });
   }
+};
+
+const getVideoThumbnail = file => {
+  const video = document.createElement("video");
+  video.setAttribute("src", URL.createObjectURL(file));
+  return video.getAttribute("src");
 };
