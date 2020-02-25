@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+
+import Preview from "./Preview";
+import { createPreviews } from "../utils";
+import { AppContext } from "../context/AppProvider";
 
 class DnD extends React.Component {
   state = {
-    dragging: false,
+    dragging: false
   };
+  static contextType = AppContext;
 
   dragCounter = 0;
   dropRef = React.createRef();
@@ -36,7 +41,9 @@ class DnD extends React.Component {
     e.stopPropagation();
     this.setState({ dragging: false });
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      this.props.handleDrop(e.dataTransfer.files);
+      if (this.props.handleDrop) this.props.handleDrop(e.dataTransfer.files);
+      if (this.props.preview)
+        createPreviews(e.dataTransfer.files, this.context, this.props.fileType);
       e.dataTransfer.clearData();
       this.dragCounter = 0;
     }
@@ -59,6 +66,8 @@ class DnD extends React.Component {
   }
 
   render() {
+    const { preview, autoUpload, handleSubmit } = this.props;
+
     return (
       <div
         style={{ position: "relative", ...this.props.style }}
@@ -94,6 +103,9 @@ class DnD extends React.Component {
           </div>
         )}
         {this.props.children}
+        {preview && handleSubmit && (
+          <Preview autoUpload={autoUpload} handleSubmit={handleSubmit} />
+        )}
       </div>
     );
   }
