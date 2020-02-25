@@ -65,6 +65,14 @@ class DnD extends React.Component {
     }
   };
 
+  deleteFile = (e) => {
+    e.preventDefault()
+    const { context } = this;
+    delete context.imgPreviews[Object.keys(context.imgPreviews)[e.target.id]]
+    delete context.files[e.target.id]
+    context.setContext(context)
+  }
+
   componentDidMount() {
     let div = this.dropRef.current;
     div.addEventListener("dragenter", this.handleDragIn);
@@ -119,7 +127,7 @@ class DnD extends React.Component {
         )}
         {this.props.children}
         {preview && uploadUrl && (
-          <Preview autoUpload={autoUpload} handleSubmit={this.uploadFiles} />
+          <Preview autoUpload={autoUpload} handleDelete={this.deleteFile} handleSubmit={this.uploadFiles} />
         )}
       </div>
     );

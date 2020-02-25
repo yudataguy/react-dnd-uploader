@@ -3,13 +3,13 @@ import React from "react";
 import { AppContext } from "../context/AppProvider";
 import { base64MimeType } from "../utils";
 
-export default function({ autoUpload, handleSubmit }) {
+export default function({ autoUpload, handleSubmit, handleDelete }) {
   const context = React.useContext(AppContext);
 
   return (
     <div className="img-previews">
       {!!Object.keys(context.imgPreviews).length &&
-        Object.keys(context.imgPreviews).map(imgName => {
+        Object.keys(context.imgPreviews).map((imgName, index) => {
           const imgSrc = context.imgPreviews[imgName].src;
           const progress = context.imgPreviews[imgName].progress;
           return (
@@ -43,6 +43,13 @@ export default function({ autoUpload, handleSubmit }) {
                   }}
                 />
               </div>
+              <span 
+                id={index}
+                className="img-previews__preview__delete-btn"
+                onClick={handleDelete}
+              >
+                ✖
+              </span>
             </div>
           );
         })}
