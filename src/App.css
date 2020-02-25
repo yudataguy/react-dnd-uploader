@@ -56,3 +56,7 @@
   background: orangered;
   height: 100%;
 }
+
+.img-previews__preview__delete-btn {
+  margin-left: 1em;
+}
