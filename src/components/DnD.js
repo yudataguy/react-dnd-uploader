@@ -3,13 +3,14 @@ import React from "react";
 import Preview from "./Preview";
 import { createPreviews } from "../utils";
 import { AppContext } from "../context/AppProvider";
+import ApiService from "../api/ApiService";
 
 class DnD extends React.Component {
   state = {
     dragging: false
   };
   static contextType = AppContext;
-
+  apiService = new ApiService();
   dragCounter = 0;
   dropRef = React.createRef();
 
@@ -31,7 +32,7 @@ class DnD extends React.Component {
     e.preventDefault();
     e.stopPropagation();
     this.dragCounter--;
-    if (this.dragCounter === 0) {
+    if (this.dragCounter <= 0) {
       this.setState({ dragging: false });
     }
   };
@@ -41,11 +42,26 @@ class DnD extends React.Component {
     e.stopPropagation();
     this.setState({ dragging: false });
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      if (this.props.handleDrop) this.props.handleDrop(e.dataTransfer.files);
       if (this.props.preview)
         createPreviews(e.dataTransfer.files, this.context, this.props.fileType);
+      if (this.props.autoUpload) this.uploadFiles();
+      else if (this.props.handleDrop)
+        this.props.handleDrop(e.dataTransfer.files);
       e.dataTransfer.clearData();
       this.dragCounter = 0;
+    }
+  };
+
+  uploadFiles = () => {
+    const { context } = this;
+    if (context.files) {
+      Object.values(context.files).forEach(file => {
+        this.apiService.uploadFile(
+          file,
+          context.setContext,
+          this.props.uploadUrl
+        );
+      });
     }
   };
 
@@ -66,7 +82,7 @@ class DnD extends React.Component {
   }
 
   render() {
-    const { preview, autoUpload, handleSubmit } = this.props;
+    const { preview, autoUpload, uploadUrl } = this.props;
 
     return (
       <div
@@ -91,9 +107,8 @@ class DnD extends React.Component {
               style={{
                 position: "absolute",
                 top: "50%",
-                right: 0,
-                left: 0,
-                textAlign: "center",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
                 color: "grey",
                 fontSize: 36
               }}
@@ -103,8 +118,8 @@ class DnD extends React.Component {
           </div>
         )}
         {this.props.children}
-        {preview && handleSubmit && (
-          <Preview autoUpload={autoUpload} handleSubmit={handleSubmit} />
+        {preview && uploadUrl && (
+          <Preview autoUpload={autoUpload} handleSubmit={this.uploadFiles} />
         )}
       </div>
     );
