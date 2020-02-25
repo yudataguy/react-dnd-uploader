@@ -1,10 +1,11 @@
-import React from 'react';
+import React from "react";
 
 export const AppContext = React.createContext();
 
 export default class AppProvider extends React.Component {
   state = {
-    imgPreviews: {}
+    imgPreviews: {},
+    files: undefined
   };
 
   setContext = (newState, done) => {
