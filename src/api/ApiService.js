@@ -47,6 +47,7 @@ export default class ApiService {
       // Http Request
       xhr.open("POST", uploadUrl);
       xhr.setRequestHeader("Content-Type", "multipart/form-data");
+      // xhr.overrideMimeType("text/html");
       xhr.send(formData);
     }
   };

@@ -1,9 +1,9 @@
-var express =   require("express");
-var multer  =   require('multer');
-var cors = require('cors');
-var app         =   express();
+const express =   require("express");
+const multer  =   require('multer');
+const cors = require('cors');
+const app         =   express();
 
-var storage =   multer.diskStorage({
+const storage =   multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './uploads');
   },
@@ -12,7 +12,7 @@ var storage =   multer.diskStorage({
   }
 });
 
-var upload = multer({ storage : storage}).single('userPhoto');
+const upload = multer({ storage : storage}).single('userPhoto');
 
 const PORT = 3001;
 
@@ -23,10 +23,12 @@ app.get('/',function(req,res){
 
 app.post('/api/photo',function(req,res){
     upload(req,res,function(err) {
+      res.setHeader('Content-Type', 'text/plain')
         if(err) {
             return res.end("Error uploading file.");
         }
-        res.end("File is uploaded");
+
+        res.end('Upload Done');
     });
 });
 
