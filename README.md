@@ -67,6 +67,19 @@ Default: `null`<br>
 
 `uploadUrl` should be the upload endpoint for uploading files.
 
+### styleOptions
+
+Type: `Object`
+Required: `false`
+Default: `{}`
+
+`styleOptions` allows you to style the elements within `react-dnd-uploader` either using inline styles or classNames. The possible options are:
+
+`{ dragContainer, drag, dragText, fileInput, previewsContainer, imgContainer, img, previewName, progressContainer, progress, delBtn, uploadBtn }`
+
+You can add inline styles by adding a `Style` suffix to the option and add a className by adding a `Class` Suffix. For example, to add inline styles to `dragContainer` we would use the `dragContainerStyle` option. All the options must either be suffixed by `Style` or `Class` expect for `dragText` which could be used without a suffix to replace the text that is displayed when the user drags over the element.
+
+
 ## Usage
 
 ```javascript

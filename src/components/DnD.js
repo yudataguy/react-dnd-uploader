@@ -101,7 +101,7 @@ class DnD extends React.Component {
   }
 
   render() {
-    const { preview, fileWindow, autoUpload, uploadUrl } = this.props;
+    const { preview, fileWindow, autoUpload, uploadUrl, styleOptions = {} } = this.props;
     const { uploading } = this.context
 
     return (
@@ -120,8 +120,10 @@ class DnD extends React.Component {
               bottom: 0,
               left: 0,
               right: 0,
-              zIndex: 9999
+              zIndex: 9999,
+              ...styleOptions.dragContainerStyle
             }}
+            className={styleOptions.dragContainerClass}
           >
             <div
               style={{
@@ -130,21 +132,43 @@ class DnD extends React.Component {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 color: "grey",
-                fontSize: 36
+                fontSize: 36,
+                ...styleOptions.dragStyle
               }}
+              className={styleOptions.dragClass}
             >
-              <div>Drop files here to upload</div>
+              <div 
+                style={styleOptions.dragTextStyle} 
+                className={styleOptions.dragTextClass}
+              >
+                {
+                  styleOptions.dragText 
+                    ? styleOptions.dragText 
+                    : "Drop files here to upload" 
+                }
+              </div>
             </div>
           </div>
         )}
         {this.props.children}
         {
           fileWindow && !uploading && (
-            <input className="file-button" type="file" name="files" multiple ref={this.fileInput} onChange={this.handleChange} />
+            <input 
+              className={styleOptions.fileInputClass}
+              style={styleOptions.fileInputStyle}
+              type="file" 
+              name="files" 
+              multiple 
+              ref={this.fileInput} 
+              onChange={this.handleChange} />
           )
         }
         {preview && uploadUrl && (
-          <Preview autoUpload={autoUpload} handleDelete={this.deleteFile} handleSubmit={this.uploadFiles} />
+          <Preview
+            styleOptions={styleOptions}
+            autoUpload={autoUpload} 
+            handleDelete={this.deleteFile} 
+            handleSubmit={this.uploadFiles} />
         )}
       </div>
     );

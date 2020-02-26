@@ -3,11 +3,18 @@ import React from "react";
 import { AppContext } from "../context/AppProvider";
 import { base64MimeType } from "../utils";
 
-export default function({ autoUpload, handleSubmit, handleDelete }) {
+export default function({ 
+  autoUpload, 
+  handleSubmit, 
+  handleDelete, 
+  styleOptions }) {
   const context = React.useContext(AppContext);
 
   return (
-    <div className="img-previews">
+    <div 
+      className={`img-previews ${styleOptions.previewsContainerClass}`}
+      style={styleOptions.previewsContainerStyle}
+    >
       {!!Object.keys(context.imgPreviews).length &&
         Object.keys(context.imgPreviews).map((imgName, index) => {
           const imgSrc = context.imgPreviews[imgName].src;
@@ -15,10 +22,14 @@ export default function({ autoUpload, handleSubmit, handleDelete }) {
           return (
             <div key={Math.random()} className="img-previews__preview">
               <div className="img-previews__preview__left">
-                <div className="img-previews__preview__img-box">
+                <div 
+                  className={`img-previews__preview__img-box ${styleOptions.imgContainerClass}`}
+                  style={styleOptions.imgContainerStyle}
+                >
                   {base64MimeType(imgSrc) === "image" && (
                     <img
-                      className="img-previews__preview__img"
+                      className={`img-previews__preview__img ${styleOptions.imgClass}`}
+                      style={styleOptions.imgStyle}
                       name={imgName}
                       src={imgSrc}
                       alt="upload-preview"
@@ -26,7 +37,8 @@ export default function({ autoUpload, handleSubmit, handleDelete }) {
                   )}
                   {!!imgSrc && imgSrc.split(":")[0] === "blob" && (
                     <video
-                      className="img-preview__preview__img"
+                      className={`img-previews__preview__img ${styleOptions.imgClass}`}
+                      style={styleOptions.imgStyle}
                       name={imgName}
                       src={imgSrc}
                       alt="upload-preview"
@@ -35,20 +47,30 @@ export default function({ autoUpload, handleSubmit, handleDelete }) {
                     />
                   )}
                 </div>
-                <span className="img-previews__preview__name">{imgName}</span>
+                <span 
+                  className={`img-previews__preview__name ${styleOptions.previewNameClass}`}
+                  style={styleOptions.previewNameStyle}
+                >
+                  {imgName}
+                </span>
               </div>
               <div className="img-previews__preview__right">
-                <div className="img-previews__preview__progress-container">
+                <div 
+                  className={`img-previews__preview__progress-container ${styleOptions.progressContainerClass}`}
+                  style={styleOptions.progressContainerStyle}
+                >
                   <div
-                    className="img-previews__preview__progress"
+                    className={`img-previews__preview__progress ${styleOptions.progressClass}`}
                     style={{
-                      width: `${(progress.loaded / progress.total) * 100}%`
+                      width: `${(progress.loaded / progress.total) * 100}%`,
+                      ...styleOptions.progressStyle
                     }}
                   />
                 </div>
                 <span 
                   id={index}
-                  className="img-previews__preview__delete-btn"
+                  className={`img-previews__preview__delete-btn ${styleOptions.delBtnClass}`}
+                  style={styleOptions.delBtnStyle}
                   onClick={handleDelete}
                 >
                   ✖
@@ -58,7 +80,12 @@ export default function({ autoUpload, handleSubmit, handleDelete }) {
           );
         })}
       {!!Object.keys(context.imgPreviews).length && !autoUpload && (
-        <button onClick={handleSubmit}>Upload</button>
+        <button
+          style={styleOptions.uploadBtnStyle}
+          className={styleOptions.uploadBtnClass}
+          onClick={handleSubmit}>
+            Upload
+        </button>
       )}
     </div>
   );
