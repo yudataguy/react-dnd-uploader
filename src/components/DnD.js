@@ -136,7 +136,7 @@ class DnD extends React.Component {
         {this.props.children}
         {
           fileWindow && !uploading && (
-            <input type="file" name="files" multiple ref={this.fileInput} onChange={this.handleChange} />
+            <input className="file-button" type="file" name="files" multiple ref={this.fileInput} onChange={this.handleChange} />
           )
         }
         {preview && uploadUrl && (
