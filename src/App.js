@@ -13,7 +13,9 @@ export default function App() {
       <DnD
         className="drag-and-drop"
         preview
+        fileWindow
         uploadUrl="http://localhost:3001/api/photo"
+        
       >
         <div>
           <div>

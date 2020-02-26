@@ -13,6 +13,13 @@ class DnD extends React.Component {
   apiService = new ApiService();
   dragCounter = 0;
   dropRef = React.createRef();
+  fileInput = React.createRef()
+
+  handleChange = () => {
+    if (this.props.preview)
+      createPreviews(this.fileInput.current.files, this.context, this.props.fileType);
+    if (this.props.autoUpload) this.uploadFiles();
+  }
 
   handleDrag = e => {
     e.preventDefault();
@@ -90,7 +97,8 @@ class DnD extends React.Component {
   }
 
   render() {
-    const { preview, autoUpload, uploadUrl } = this.props;
+    const { preview, fileWindow, autoUpload, uploadUrl } = this.props;
+    const { uploading } = this.context
 
     return (
       <div
@@ -126,6 +134,11 @@ class DnD extends React.Component {
           </div>
         )}
         {this.props.children}
+        {
+          fileWindow && !uploading && (
+            <input type="file" name="files" multiple ref={this.fileInput} onChange={this.handleChange} />
+          )
+        }
         {preview && uploadUrl && (
           <Preview autoUpload={autoUpload} handleDelete={this.deleteFile} handleSubmit={this.uploadFiles} />
         )}
