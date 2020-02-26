@@ -34,11 +34,17 @@ export const createPreviews = (filesToPreview, context, fileType) => {
     else {
       // Create unique keys for the files if the 'files' state already contains files
       const filesLength = Object.keys(context.files).length;
-      Object.values(filesToPreview).forEach((file, index) =>
-        context.setContext(state => ({
-          files: { ...state.files, [filesLength + index]: file }
-        }))
-      );
+      const lastId = parseInt(Object.keys(context.files)[filesLength - 1]);
+      Object.values(filesToPreview).forEach((file, index) => {
+        // Check if file is already in the files context and skip it
+        const isIncluded = Object.values(context.files).reduce((acc, val) => {
+          return acc || val.name === file.name
+        }, false);
+        if(!isIncluded)
+          context.setContext(state => ({
+            files: { ...state.files, [lastId + index + 1]: file }
+          }));
+      });
     }
     // Add the img previews to the context so <Preview /> can display them
     Object.values(filesToPreview).forEach(file => {

@@ -77,11 +77,26 @@ class DnD extends React.Component {
   };
 
   deleteFile = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const { context } = this;
-    delete context.imgPreviews[Object.keys(context.imgPreviews)[e.target.id]]
-    delete context.files[e.target.id]
-    context.setContext(context)
+    const newContext = { ...context };
+    // Delete the file from the previews
+    delete newContext.imgPreviews[e.target.id];
+    const BreakException = {};
+    try {
+      // Loop through context files and delete the cooresponding file
+      Object.keys(newContext.files).forEach(fileKey => {
+        if(newContext.files[fileKey].name === e.target.id) {
+          delete newContext.files[fileKey];
+          // Throw and exception in order to break from
+          // the forEach loop after deleting the file
+          throw BreakException;
+        }
+      })
+    } catch (e) {
+      if(e !== BreakException) console.error(e);
+    }
+    context.setContext(newContext);
   }
 
   componentDidMount() {
