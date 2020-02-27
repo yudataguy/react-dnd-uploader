@@ -62,12 +62,16 @@ class DnD extends React.Component {
   uploadFiles = () => {
     const { context } = this;
     if (context.files) {
-      Object.values(context.files).forEach(file => {
-        this.apiService.uploadFile(
-          file,
-          context.setContext,
-          this.props.uploadUrl
-        );
+      Object.values(context.files).forEach(async file => {
+        try {
+          await this.apiService.uploadFile(
+            file,
+            context.setContext,
+            this.props.uploadUrl
+          );
+        } catch (e) {
+          console.error(e);
+        }
       });
     }
   };
@@ -129,7 +133,7 @@ class DnD extends React.Component {
                 fontSize: 36
               }}
             >
-              <div>Drops files here to upload</div>
+              <div>Drop files here to upload</div>
             </div>
           </div>
         )}
