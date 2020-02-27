@@ -16,7 +16,7 @@ export default function({
       style={styleOptions.previewsContainerStyle}
     >
       {!!Object.keys(context.imgPreviews).length &&
-        Object.keys(context.imgPreviews).map((imgName, index) => {
+        Object.keys(context.imgPreviews).map(imgName => {
           const imgSrc = context.imgPreviews[imgName].src;
           const progress = context.imgPreviews[imgName].progress;
           return (
@@ -68,7 +68,7 @@ export default function({
                   />
                 </div>
                 <span 
-                  id={index}
+                  id={imgName}
                   className={`img-previews__preview__delete-btn ${styleOptions.delBtnClass}`}
                   style={styleOptions.delBtnStyle}
                   onClick={handleDelete}
