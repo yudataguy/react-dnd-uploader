@@ -1,9 +1,9 @@
-const express =   require("express");
-const multer  =   require('multer');
+const express = require("express");
+const multer  = require('multer');
 const cors = require('cors');
-const app         =   express();
+const app = express();
 
-const storage =   multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './uploads');
   },
@@ -27,7 +27,6 @@ app.post('/api/photo',function(req,res){
         if(err) {
             return res.end("Error uploading file.");
         }
-
         res.end('Upload Done');
     });
 });

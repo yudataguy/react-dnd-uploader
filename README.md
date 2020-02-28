@@ -18,15 +18,11 @@ For npm
 npm install --save react-dnd-uploader
 ```
 
-For yarn
-
-```bash
-yarn
-```
-
 ## Demo
 
 ```bash
+git clone https://github.com/yudataguy/react-dnd-uploader.git
+cd react-dnd-uploader
 npm install
 npm start
 ```
@@ -41,7 +37,7 @@ Type: `Boolean`<br>
 Required: `false`<br>
 Default: `false`<br>
 
-If the `fileWindow` is set to `true, there will be a file window button available on drag and drop zone.
+If the `fileWindow` is set to `true`, there will be a file window button available on drag and drop zone.
 
 ### autoUpload
 
@@ -81,9 +77,11 @@ You can add inline styles by adding a `Style` suffix to the option and add a cla
 
 ## Sample Code
 
+### Frontend
+
 ```javascript
 import React from 'react';
-import ReactDNDUploader from 'react-dnd-uploader';
+import ReactDnDUploader from 'react-dnd-uploader';
 import "./App.css";
 
 export default function App() {
@@ -92,20 +90,59 @@ export default function App() {
   const { uploading } = context;
   return (
     <div className="App">
-      <DnD
+      <ReactDnDUploader
         className="drag-and-drop"
         preview
         uploadUrl="http://localhost:3001/api/photo"
       >
-        <div>
-          <div>
-            <div style={{ marginBottom: "1rem" }}>
-              Customize drop zone text here
-            </div>
-          </div>
+        <div style={{ marginBottom: "1rem" }}>
+          {!uploading
+                ? "Customize drop zone text here"
+                : "Uploading..."}
         </div>
-      </DnD>
+      </ReactDnDUploader>
     </div>
   );
 };
+```
+
+### Backend
+
+```javascript
+const express = require("express");
+const multer  = require('multer');
+const cors = require('cors');
+const app = express();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
+});
+
+const upload = multer({ storage : storage}).single('userPhoto');
+
+const PORT = 3001;
+
+app.use(cors());
+app.get('/',function(req,res){
+      res.sendFile(__dirname + "/index.html");
+});
+
+app.post('/api/photo',function(req,res){
+    upload(req,res,function(err) {
+      res.setHeader('Content-Type', 'text/plain')
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+        res.end('Upload Done');
+    });
+});
+
+app.listen(PORT,function(){
+    console.log(`Node server working on port ${PORT}`);
+});
 ```
