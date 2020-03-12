@@ -18,6 +18,12 @@ For npm
 npm install --save react-dnd-uploader
 ```
 
+For yarn
+
+```bash
+yarn add react-dnd-uploader
+```
+
 ## Demo
 
 ```bash
