@@ -23,7 +23,7 @@ export function Preview({
           return (
             <div key={Math.random()} className="img-previews__preview">
               <div className="img-previews__preview__left">
-                <div 
+                <div
                   className={`img-previews__preview__img-box ${styleOptions.imgContainerClass}`}
                   style={styleOptions.imgContainerStyle}
                 >
@@ -68,14 +68,14 @@ export function Preview({
                     }}
                   />
                 </div>
-                <span 
+                {!context.uploading && <span 
                   id={imgName}
                   className={`img-previews__preview__delete-btn ${styleOptions.delBtnClass}`}
                   style={styleOptions.delBtnStyle}
                   onClick={handleDelete}
                 >
                   ✖
-                </span>
+                </span>}
               </div>
             </div>
           );

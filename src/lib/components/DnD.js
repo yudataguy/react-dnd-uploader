@@ -5,7 +5,7 @@ import { createPreviews } from "../utils";
 import { AppContext } from "../context/AppProvider";
 import { ApiService } from "../api/ApiService";
 
-export class DnD extends React.Component {
+class ReactDnDUploader extends React.Component {
   state = {
     dragging: false
   };
@@ -188,3 +188,5 @@ export class DnD extends React.Component {
     );
   }
 }
+
+export default ReactDnDUploader;
