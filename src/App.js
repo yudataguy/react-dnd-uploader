@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDnDUploader from "react-dnd-uploader";
+import ReactDndUploader from "react-dnd-uploader";
 
 export default function App() {
   return (
     <div className="App">
-      <ReactDnDUploader
+      <ReactDndUploader
         className="drag-and-drop"
         preview
         fileWindow
@@ -25,7 +25,7 @@ export default function App() {
             )
           }
         }
-      </ReactDnDUploader>
+      </ReactDndUploader>
     </div>
   );
 }
