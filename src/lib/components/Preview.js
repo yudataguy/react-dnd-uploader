@@ -2,8 +2,9 @@ import React from "react";
 
 import { AppContext } from "../context/AppProvider";
 import { base64MimeType } from "../utils";
+import '../DnD.css';
 
-export default function({ 
+export function Preview({ 
   autoUpload, 
   handleSubmit, 
   handleDelete, 

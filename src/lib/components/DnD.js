@@ -1,9 +1,9 @@
 import React from "react";
 
-import Preview from "./Preview";
+import { Preview } from "./Preview";
 import { createPreviews } from "../utils";
 import { AppContext } from "../context/AppProvider";
-import ApiService from "../api/ApiService";
+import { ApiService } from "../api/ApiService";
 
 class ReactDnDUploader extends React.Component {
   state = {
@@ -54,7 +54,6 @@ class ReactDnDUploader extends React.Component {
       if (this.props.autoUpload) this.uploadFiles();
       else if (this.props.handleDrop)
         this.props.handleDrop(e.dataTransfer.files);
-      // e.dataTransfer.clearData();
       this.dragCounter = 0;
     }
   };
@@ -120,72 +119,72 @@ class ReactDnDUploader extends React.Component {
     const { uploading } = this.context
 
     return (
-      <div
-        style={{ position: "relative", ...this.props.style }}
-        ref={this.dropRef}
-        className={this.props.className}
-      >
-        {this.state.dragging && (
-          <div
-            style={{
-              border: "dashed grey 4px",
-              backgroundColor: "rgba(255,255,255,.8)",
-              position: "absolute",
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              zIndex: 9999,
-              ...styleOptions.dragContainerStyle
-            }}
-            className={styleOptions.dragContainerClass}
-          >
+        <div
+          style={{ position: "relative", ...this.props.style }}
+          ref={this.dropRef}
+          className={this.props.className}
+        >
+          {this.state.dragging && (
             <div
               style={{
+                border: "dashed grey 4px",
+                backgroundColor: "rgba(255,255,255,.8)",
                 position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                color: "grey",
-                fontSize: 36,
-                ...styleOptions.dragStyle
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                zIndex: 9999,
+                ...styleOptions.dragContainerStyle
               }}
-              className={styleOptions.dragClass}
+              className={styleOptions.dragContainerClass}
             >
-              <div 
-                style={styleOptions.dragTextStyle} 
-                className={styleOptions.dragTextClass}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  color: "grey",
+                  fontSize: 36,
+                  ...styleOptions.dragStyle
+                }}
+                className={styleOptions.dragClass}
               >
-                {
-                  styleOptions.dragText 
-                    ? styleOptions.dragText 
-                    : "Drop files here to upload" 
-                }
+                <div 
+                  style={styleOptions.dragTextStyle} 
+                  className={styleOptions.dragTextClass}
+                >
+                  {
+                    styleOptions.dragText 
+                      ? styleOptions.dragText 
+                      : "Drop files here to upload" 
+                  }
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        {this.props.children}
-        {
-          fileWindow && !uploading && (
-            <input 
-              className={styleOptions.fileInputClass}
-              style={styleOptions.fileInputStyle}
-              type="file" 
-              name="files" 
-              multiple 
-              ref={this.fileInput} 
-              onChange={this.handleChange} />
-          )
-        }
-        {preview && uploadUrl && (
-          <Preview
-            styleOptions={styleOptions}
-            autoUpload={autoUpload} 
-            handleDelete={this.deleteFile} 
-            handleSubmit={this.uploadFiles} />
-        )}
-      </div>
+          )}
+          {this.props.children(uploading)}
+          {
+            fileWindow && !uploading && (
+              <input 
+                className={styleOptions.fileInputClass}
+                style={styleOptions.fileInputStyle}
+                type="file" 
+                name="files" 
+                multiple 
+                ref={this.fileInput} 
+                onChange={this.handleChange} />
+            )
+          }
+          {preview && uploadUrl && (
+            <Preview
+              styleOptions={styleOptions}
+              autoUpload={autoUpload} 
+              handleDelete={this.deleteFile} 
+              handleSubmit={this.uploadFiles} />
+          )}
+        </div>
     );
   }
 }

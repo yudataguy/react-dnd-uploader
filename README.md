@@ -91,14 +91,12 @@ import ReactDnDUploader from 'react-dnd-uploader';
 import "./App.css";
 
 export default function App() {
-  const context = React.useContext(AppContext);
-
-  const { uploading } = context;
   return (
     <div className="App">
       <ReactDnDUploader
         className="drag-and-drop"
         preview
+        fileWindow
         uploadUrl="http://localhost:3001/api/photo"
       >
         <div style={{ marginBottom: "1rem" }}>
@@ -109,7 +107,7 @@ export default function App() {
       </ReactDnDUploader>
     </div>
   );
-};
+}
 ```
 
 ### Backend
