@@ -1,8 +1,5 @@
 import React from "react";
-import ReactDnDUploader from "./components/DnD";
-import "./App.css";
-
-import { AppContext } from "./context/AppProvider";
+import ReactDnDUploader from "react-dnd-uploader";
 
 export default function App() {
   return (
