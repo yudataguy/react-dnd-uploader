@@ -1,0 +1,14 @@
+{
+  "name": "react-dnd-uploader",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "module": "./index.js",
+  "devDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}

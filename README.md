@@ -81,31 +81,39 @@ You can add inline styles by adding a `Style` suffix to the option and add a cla
 
 ## Sample Code
 
+ReactDndUploader makes use of the render prop pattern. So in order to get the uploading state and render something within ReactDndUploader, a render function must be passed as the child like in the following example.
+
+
 ```javascript
-import React from 'react';
-import ReactDNDUploader from 'react-dnd-uploader';
-import "./App.css";
+import React from "react";
+import ReactDndUploader from "react-dnd-uploader";
 
 export default function App() {
-  const context = React.useContext(AppContext);
-
-  const { uploading } = context;
   return (
     <div className="App">
-      <DnD
+      <ReactDndUploader
         className="drag-and-drop"
         preview
+        fileWindow
         uploadUrl="http://localhost:3001/api/photo"
       >
-        <div>
-          <div>
-            <div style={{ marginBottom: "1rem" }}>
-              Customize drop zone text here
+        {
+          uploading => {
+            return (
+            <div>
+              <div>
+                <div style={{ marginBottom: "1rem" }}>
+                  {!uploading
+                    ? 'Click "Choose Files" or Drag and Drop files here to upload'
+                    : "Uploading..."}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </DnD>
+            )
+          }
+        }
+      </ReactDndUploader>
     </div>
   );
-};
+}
 ```
