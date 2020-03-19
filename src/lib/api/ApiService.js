@@ -66,12 +66,42 @@ export class ApiService {
           };
     
           // Http Request
-          xhr.open("POST", uploadUrl);
-          xhr.setRequestHeader("Content-Type", "multipart/form-data");
-          // xhr.overrideMimeType("text/html");
-          xhr.send(formData);
-        });
+          xhr.open("POST", uploadUrl, true);
+          xhr.setRequestHeader("Content-Type", "application/json") 
+        
+          handleFile(file).then(data => {
+            xhr.send(JSON.stringify({file: data, filename: file.name}));
+          });
+        })
       }
-    };
+    }
   }
+}
+
+
+const base64image = (inputFile) => {
+  const reader = new FileReader()
+
+  return new Promise((resolve, reject) => {
+    reader.onerror = () => {
+      reader.abort()
+      reject(new DOMException("Error with parsing file."))
+    }
+
+    reader.onload = () => {
+      resolve(reader.result)
+    }
+    reader.readAsDataURL(inputFile)
+  })
+}
+
+const handleFile = async (file) => {
+  let result
+  try {
+    const fileContent = await base64image(file)
+    result = fileContent
+  } catch (e) {
+    console.error(e)
+  }
+  return result
 }
