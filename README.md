@@ -136,9 +136,10 @@ app.get('/',function(req,res){
       res.sendFile(__dirname + "/index.html");
 });
 
+// File is being uploaded as json object in request body
 app.post('/api/photo',function(req,res){
     upload(req,res,function(err) {
-      res.setHeader('Content-Type', 'text/plain')
+      res.setHeader('Content-Type', 'application/json')
         if(err) {
             return res.end("Error uploading file.");
         }

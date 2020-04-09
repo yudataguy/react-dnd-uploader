@@ -1,6 +1,6 @@
 {
   "name": "react-dnd-uploader",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "main": "./index.js",
   "module": "./index.js",
   "repository": {
