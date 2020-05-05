@@ -66,7 +66,9 @@ export class DnD extends React.Component {
           await this.apiService.uploadFile(
             file,
             context.setContext,
-            this.props.uploadUrl
+            this.props.uploadUrl,
+            this.props.onResolve ? this.props.onResolve : () => {},
+            this.props.onReject ? this.props.onReject : () => {}
           );
         } catch (e) {
           console.error(e);
