@@ -1,6 +1,6 @@
 export class ApiService {
   constructor() {
-    this.uploadFile = async (file, setContext, uploadUrl) => {
+    this.uploadFile = async (file, setContext, uploadUrl, onResolve, onReject) => {
       if (file) {
         return new Promise((resolve, reject) => {
   
@@ -49,8 +49,10 @@ export class ApiService {
   
           xhr.onload = function() {
             if (this.status >= 200 && this.status < 300) {
+              onResolve();
               resolve(xhr.response);
             } else {
+              onReject();
               reject({
                 status: this.status,
                 statusText: xhr.statusText
@@ -59,6 +61,7 @@ export class ApiService {
           };
           
           xhr.onerror = function() {
+            onReject();
             reject({
               status: this.status,
               statusText: xhr.statusText
