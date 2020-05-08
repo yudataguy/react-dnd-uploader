@@ -1,6 +1,6 @@
 {
   "name": "react-dnd-uploader",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "homepage": "https://github.com/yudataguy/react-dnd-uploader",
   "description": "React lightweight, easy to use, drag and drop uploader component",
   "license": "MIT",
@@ -46,7 +46,8 @@
     "start": "(react-scripts start & node server.js)",
     "build": "rm -rf dist && babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__ && cp package.module.json dist/package.json && cp README.md dist/README.md",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "npm:publish": "cd dist && npm publish"
   },
   "eslintConfig": {
     "extends": "react-app"
