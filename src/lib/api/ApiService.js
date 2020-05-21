@@ -1,6 +1,6 @@
 export class ApiService {
   constructor() {
-    this.uploadFile = async (file, setContext, uploadUrl, onResolve, onReject) => {
+    this.uploadFile = async (file, setContext, uploadUrl, onResolve, onReject, uploadBody) => {
       if (file) {
         return new Promise((resolve, reject) => {
   
@@ -73,7 +73,8 @@ export class ApiService {
           xhr.setRequestHeader("Content-Type", "application/json") 
         
           handleFile(file).then(data => {
-            xhr.send(JSON.stringify({file: data, filename: file.name}));
+            const body = {...uploadBody, file: data, filename: file.name};
+            xhr.send(JSON.stringify(body));
           });
         })
       }
