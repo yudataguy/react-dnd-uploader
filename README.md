@@ -69,6 +69,14 @@ Default: `null`<br>
 
 `uploadUrl` should be the upload endpoint for uploading files.
 
+### uploadBody
+
+Type: `Object`<br>
+Required: `false`<br>
+Default: `{}`<br>
+
+`uploadBody` is passed alongside the request body.
+
 ### styleOptions
 
 Type: `Object`<br>
