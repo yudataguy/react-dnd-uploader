@@ -9,7 +9,7 @@ export default function App() {
         preview
         fileWindow
         uploadUrl="http://localhost:3001/api/photo"
-        uploadBody={{
+        uploadbody={{
           example: 'hello'
         }}
       >
