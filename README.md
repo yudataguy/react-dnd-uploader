@@ -69,13 +69,13 @@ Default: `null`<br>
 
 `uploadUrl` should be the upload endpoint for uploading files.
 
-### uploadBody
+### uploadbody
 
 Type: `Object`<br>
 Required: `false`<br>
 Default: `{}`<br>
 
-`uploadBody` is passed alongside the request body.
+`uploadbody` is passed alongside the request body.
 
 ### styleOptions
 
@@ -89,21 +89,21 @@ Default: `{}`<br>
 
 You can add inline styles by adding a `Style` suffix to the option and add a className by adding a `Class` Suffix. For example, to add inline styles to `dragContainer` we would use the `dragContainerStyle` option. All the options must either be suffixed by `Style` or `Class` expect for `dragText` which could be used without a suffix to replace the text that is displayed when the user drags over the element.
 
-### onResolve
+### onresolve
 
 Type: `Function`<br>
 Required: `false`<br>
 Default: `null`<br>
 
-`onResolve` gets called as a callback when the upload api call resolves.
+`onresolve` gets called as a callback when the upload api call resolves.
 
-### onReject
+### onreject
 
 Type: `Function`<br>
 Required: `false`<br>
 Default: `null`<br>
 
-`onReject` gets called as a callback when the upload api call is rejected or fails.
+`onreject` gets called as a callback when the upload api call is rejected or fails.
 
 ## Sample Code
 

@@ -67,9 +67,9 @@ export class DnD extends React.Component {
             file,
             context.setContext,
             this.props.uploadUrl,
-            this.props.onResolve ? this.props.onResolve : () => {},
-            this.props.onReject ? this.props.onReject : () => {},
-            this.props.uploadBody ? this.props.uploadBody : {}
+            this.props.onresolve ? this.props.onresolve : () => {},
+            this.props.onreject ? this.props.onreject : () => {},
+            this.props.uploadbody ? this.props.uploadbody : {}
           );
         } catch (e) {
           console.error(e);
