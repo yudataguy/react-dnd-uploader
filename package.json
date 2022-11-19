@@ -40,7 +40,7 @@
     "@yudataguy/react-dnd-uploader": "file:dist",
     "git": "^0.1.5",
     "react-dnd-uploader": "file:dist",
-    "react-scripts": "3.4.0"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "(react-scripts start & node server.js)",
